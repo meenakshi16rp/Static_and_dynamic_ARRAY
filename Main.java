@@ -30,14 +30,13 @@ public class Main {
         System.out.println("Comparison: " + resultCompare);  // Output: false
 
         // Testing Character Frequency
-        CharacterFrequency charFreq = new CharacterFrequency();
-        System.out.println("Character Frequency for 'Hello':");
-        charFreq.calculateFrequency("Hello");
-        // Output: 
-        // H: 1
-        // e: 1
-        // l: 2
-        // o: 1
+         CharacterFrequency charFreq = new CharacterFrequency();
+        Map<Character, Integer> freqMap = charFreq.calculateFrequency("Hello");
+
+        // Printing the frequency in Python-like dictionary format
+        System.out.println("Character Frequency for 'Hello' in Python dictionary format:");
+        System.out.println(charFreq.formatAsPythonDict(freqMap));
+        // Expected Output: {'h': 1, 'e': 1, 'l': 2, 'o': 1}
     }
 }
 
