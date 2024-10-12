@@ -1,36 +1,34 @@
-import java.util.Scanner;
+//A dynamic array resizes itself when more space is needed. It starts with an initial capacity, and when the size exceeds the capacity, the array is resized (typically doubled in size).
+
 import java.util.Arrays;
 
-class DynamicArray {
-    // Array to store elements and a variable to keep track of the size
-    int[] arr;
-    int size;
+public class DynamicArray {
+    private int[] arr;  // Underlying array
+    private int size;   // Current number of elements
 
-    // Constructor to initialize the dynamic array with an initial capacity of 2
+    // Constructor to initialize the dynamic array with a small initial capacity
     public DynamicArray() {
-        arr = new int[2];  // Initial capacity
-        size = 0;          // Initially, the size is zero
+        arr = new int[2];  // Initial capacity of 2
+        size = 0;
     }
 
-    // Insertion method to add an element, resizes the array if full
+    // Method to insert an element at the end of the array
     public void insert(int element) {
         if (size == arr.length) {
-            resizeArray();  // Double the array size if capacity is full
+            resizeArray();  // Double the size of the array if it's full
         }
-        arr[size] = element;  // Insert the element and increase the size
-        size++;
+        arr[size++] = element;
     }
 
-    // Resizing the array when capacity is full
-    public void resizeArray() {
-        int newSize = arr.length * 2;  // Double the current size
-        arr = Arrays.copyOf(arr, newSize);  // Copy the old elements to the new array
+    // Method to resize the array when it's full
+    private void resizeArray() {
+        int newSize = arr.length * 2;  // Double the size of the array
+        arr = Arrays.copyOf(arr, newSize);  // Copy the elements to a new array of larger size
     }
 
-    // Deletion method to remove the first occurrence of the element
+    // Method to delete the first occurrence of an element in the array
     public void delete(int element) {
         int index = -1;
-        // Find the index of the element to be deleted
         for (int i = 0; i < size; i++) {
             if (arr[i] == element) {
                 index = i;
@@ -38,75 +36,21 @@ class DynamicArray {
             }
         }
 
-        // If the element is found, shift the remaining elements to fill the gap
         if (index != -1) {
             for (int i = index; i < size - 1; i++) {
                 arr[i] = arr[i + 1];
             }
-            size--;  // Reduce the size of the array
+            size--;
         } else {
-            System.out.println("Element not found");
+            System.out.println("Element not found.");
         }
     }
 
-    // Traversal method to print all elements in the array
+    // Method to traverse and print all elements of the array
     public void traverse() {
-        if (size == 0) {
-            System.out.println("Array is empty");
-        } else {
-            for (int i = 0; i < size; i++) {
-                System.out.print(arr[i] + " ");
-            }
-            System.out.println();
+        for (int i = 0; i < size; i++) {
+            System.out.print(arr[i] + " ");
         }
-    }
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        // Create a dynamic array
-        DynamicArray dynamicArray = new DynamicArray();
-
-        // Menu-driven program to perform insert, delete, and traverse operations
-        while (true) {
-            System.out.println("\nChoose an operation:");
-            System.out.println("1. Insert");
-            System.out.println("2. Delete");
-            System.out.println("3. Traverse");
-            System.out.println("4. Exit");
-
-            int choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    // Insert element
-                    System.out.print("Enter element to insert: ");
-                    int element = scanner.nextInt();
-                    dynamicArray.insert(element);
-                    break;
-
-                case 2:
-                    // Delete element
-                    System.out.print("Enter element to delete: ");
-                    int delElement = scanner.nextInt();
-                    dynamicArray.delete(delElement);
-                    break;
-
-                case 3:
-                    // Traverse array
-                    dynamicArray.traverse();
-                    break;
-
-                case 4:
-                    // Exit the program
-                    System.out.println("Exiting...");
-                    scanner.close();
-                    System.exit(0);
-
-                default:
-                    System.out.println("Invalid choice, please try again.");
-            }
-        }
+        System.out.println();
     }
 }
-
